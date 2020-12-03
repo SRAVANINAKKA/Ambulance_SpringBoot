@@ -2,11 +2,13 @@ package com.cg.Ambulance.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -21,6 +23,10 @@ public class Ambulance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Booking_id;
+	@NotBlank(message = "BookingIdentifier is required")
+	@Size(min=4, max=5,message = "Size must be between 4 to 5 characters")
+	@Column(unique = true,updatable = false)
+	private String bookingIdentifier;
 	@NotBlank(message = "Ambulance_Number is required")
 	private String Ambulance_Number;
 	@NotBlank(message = "DriverName is required")
@@ -41,6 +47,13 @@ public class Ambulance {
 	}
 	public void setBooking_id(Long booking_id) {
 		Booking_id = booking_id;
+	}
+	
+	public String getBookingIdentifier() {
+		return bookingIdentifier;
+	}
+	public void setBookingIdentifier(String bookingIdentifier) {
+		this.bookingIdentifier = bookingIdentifier;
 	}
 	public String getAmbulance_Number() {
 		return Ambulance_Number;
