@@ -1,0 +1,5 @@
+package com.cg.Ambulance.respository;
+
+public interface AmbulanceRepository {
+
+}

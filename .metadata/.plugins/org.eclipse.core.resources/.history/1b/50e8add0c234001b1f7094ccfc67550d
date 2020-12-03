@@ -1,0 +1,93 @@
+package com.cg.Ambulance.domain;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+
+/**
+ * Ambulance Domain is used as data traveller object. 
+ * All Project Validation will be performed here. * 
+ * @author DELL
+ *
+ */
+@Entity
+public class Ambulance {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long Booking_id;
+	private String Ambulance_Number;
+	private String DriverName;
+	private String UserName;
+	private String Address;
+	private Date Booking_date;
+	private Date created_At;
+	private Date updated_At;
+	//private Date end_date;
+	public Ambulance() {
+		super();
+	}
+	public Long getBooking_id() {
+		return Booking_id;
+	}
+	public void setBooking_id(Long booking_id) {
+		Booking_id = booking_id;
+	}
+	public String getAmbulance_Number() {
+		return Ambulance_Number;
+	}
+	public void setAmbulance_Number(String ambulance_Number) {
+		Ambulance_Number = ambulance_Number;
+	}
+	public String getDriverName() {
+		return DriverName;
+	}
+	public void setDriverName(String driverName) {
+		DriverName = driverName;
+	}
+	public String getUserName() {
+		return UserName;
+	}
+	public void setUserName(String userName) {
+		UserName = userName;
+	}
+	public String getAddress() {
+		return Address;
+	}
+	public void setAddress(String address) {
+		Address = address;
+	}
+	public Date getBooking_date() {
+		return Booking_date;
+	}
+	public void setBooking_date(Date booking_date) {
+		Booking_date = booking_date;
+	}
+	public Date getCreated_At() {
+		return created_At;
+	}
+	public void setCreated_At(Date created_At) {
+		this.created_At = created_At;
+	}
+	public Date getUpdated_At() {
+		return updated_At;
+	}
+
+	public void setUpdated_At(Date updated_At) {
+		this.updated_At = updated_At;
+	}
+	@PrePersist
+	public void onCreate() {
+		this.setCreated_At(new Date());
+	}
+
+	@PreUpdate
+	public void onUpdate() {
+		this.updated_At=new Date();
+	}
+	
+}

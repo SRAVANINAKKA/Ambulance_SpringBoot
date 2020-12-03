@@ -1,0 +1,5 @@
+package com.cg.Ambulance.web;
+
+public class AmbulanceController {
+
+}
