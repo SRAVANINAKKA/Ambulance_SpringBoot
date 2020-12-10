@@ -1,7 +1,5 @@
 package com.cg.Ambulance.exception;
 
-import java.io.IOException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler
-	public final ResponseEntity<Object> handleBookingIDException(IOException ex, WebRequest request){
+	public final ResponseEntity<Object> handleBookingIDException(BookingIDException ex, WebRequest request){
 		BookingIdExceptionResponse exceptionResponse=new BookingIdExceptionResponse(ex.getMessage());
 		return new ResponseEntity<Object>(exceptionResponse,HttpStatus.BAD_REQUEST);
 	}

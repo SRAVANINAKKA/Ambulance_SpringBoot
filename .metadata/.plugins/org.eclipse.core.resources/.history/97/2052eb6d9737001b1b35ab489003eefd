@@ -1,0 +1,58 @@
+package com.cg.Ambulance.service;
+
+import java.util.List;
+
+//import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cg.Ambulance.domain.Ambulance;
+import com.cg.Ambulance.exception.BookingIDException;
+import com.cg.Ambulance.respository.AmbulanceRepository;
+
+@Service
+
+public class AmbulanceService {
+	@Autowired
+	private AmbulanceRepository ambulanceRepository;
+
+	public Ambulance save(Ambulance ambulance) {
+		try {
+			ambulance.setBookingIdentifier(ambulance.getBookingIdentifier().toUpperCase());
+			return ambulanceRepository.save(ambulance);
+		}
+		catch (Exception e) {
+			throw new BookingIDException("BookingIdentifier " + ambulance.getBookingIdentifier() + " already available");
+		      }
+	       }
+	public List<Ambulance> findAmbulanceByBookingIdentifier(String bookingIdentifier) {
+			Ambulance ambulance = ambulanceRepository.findByBookingIdentifier(bookingIdentifier.toUpperCase());
+			if (ambulance == null) {
+				throw new BookingIDException("BookingIdentifier " + bookingIdentifier + " not available");
+			
+			}
+			return ambulance;
+
+		
+	}
+		public Iterable<Ambulance> viewAllBookings(){
+			return ambulanceRepository.findAll();
+		}
+		public Ambulance updateByBookingResult(String bookingIdentifier, String bookingResult){
+		Ambulance ambulance = ambulanceRepository.findByBookingIdentifier(bookingIdentifier.toUpperCase());
+		if (ambulance == null) {
+			throw new BookingIDException("BookingIdentifier with " + bookingIdentifier + " does not exist to update");
+            }
+	    ambulance.setBookingResult(bookingResult);
+			return ambulanceRepository.save(ambulance);
+		    }
+//		public Ambulance update(String bookingIdentifier, Ambulance ambualnce) {
+//			Ambulance oldAmbulance = ambulanceRepository.findByBookingIdentifier(bookingIdentifier.toUpperCase());;
+//			if (oldAmbulance == null) {
+//				throw new BookingIDException("BookingIdentifier with " + bookingIdentifier + " does not exist to update");
+//	            }
+//			
+//			BeanUtils.copyProperties(ambulance, oldAmbulance, "Id");
+//			return ambulance;
+//		}
+}

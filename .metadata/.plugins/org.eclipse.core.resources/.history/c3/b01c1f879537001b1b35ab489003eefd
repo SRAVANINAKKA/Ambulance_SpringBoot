@@ -1,0 +1,33 @@
+package com.cg.Ambulance;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.cg.Ambulance.domain.Ambulance;
+import com.cg.Ambulance.respository.AmbulanceRepository;
+import com.cg.Ambulance.service.AmbulanceService;
+
+@ExtendWith(MockitoExtension.class)
+public class AmbulanceServiceTest {
+	@Mock
+	private AmbulanceRepository ambulanceRepository;
+	@InjectMocks
+	private AmbulanceService ambulanceService;
+
+	@Test
+	public void test_Save_GivenAmbulance() {
+		Ambulance newambulance = new Ambulance(101, "AE12", "12345","driver1", "user1", "Delhi", null, null);
+		when(ambulanceRepository.save(Mockito.any(Ambulance.class))).thenReturn(newambulance);
+		Ambulance ambulanceFound = ambulanceService.save(newambulance);
+		assertEquals("12345", ambulanceFound.getAmbulance_Number());
+	
+	
+}
+}

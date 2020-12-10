@@ -1,0 +1,44 @@
+package com.cg.Ambulance;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import com.cg.Ambulance.domain.Ambulance;
+import com.cg.Ambulance.service.AmbulanceService;
+import com.cg.Ambulance.web.AmbulanceController;
+
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(controllers = AmbulanceController.class)
+public class AmbulanceControllerTest {
+	@Autowired
+	MockMvc mockMvc;
+	
+	@MockBean
+	AmbulanceService ambulanceService;
+
+	@Test
+	void test_getAmbulanceByBookingIdentifier() throws Exception{
+		
+		BDDMockito.given(ambulanceService.findAmbulanceByBookingIdentifier(Mockito.anyString())).willReturn(new Ambulance());
+		
+		mockMvc.perform(MockMvcRequestBuilders.get("/ambulances"))
+		.andExpect(status().isOk()); //expected 200 --------actual 404
+//		.andExpect(jsonPath("$").isMap()) // expected {} ------- actual Blank
+//		.andExpect(jsonPath("name").value("First Project"))
+//		.andExpect(jsonPath("projIdentifier").value("fp01"))
+//		.andExpect(jsonPath("description").value("First Project Description"));
+//		
+	}
+	
+	
+
+}
